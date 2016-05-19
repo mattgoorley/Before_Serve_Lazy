@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lazy Sunday</title>
+    <link rel="stylesheet" type="text/css" href="static/food.css">
+  </head>
+
+  <body>
+    <h3>Got on dis!</h3>
+      <div>You want dis stuff?</div>
+    <nav class="bar">
+      <button type="button" class="likebutton swipe">Like</button>
+      <button type="button" class='dislikebutton swipe'>Dislike</button>
+      <button type="button" class='myfoodbutton'>My Food</button>
+    </nav>
+    <div class="container">
+      <div class="content">
+      </div>
+    </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+
+  <!-- <script src='foodmust.html'></script> -->
+
+
+<script src='static/food.js'></script>
+<script id='postfood' type='x-tmpl-mustache'>
+    <div class='<%num%> slide' style="z-index:<%num%>;">
+      <h3 class='name'><%name%></h3>
+        <div class='imageDiv'>
+          <img class='foodImage' src='<%image%>'/>
+        </div>
+        <div class='description'><%description%></div>
+        <div class='price'><%price%></div>
+    </div>
+</script>
+<script id='myfood' type='x-tmpl-mustache'>
+  <div class='<%name%> dish'>
+    <h3 class='myname'><%name%></h3>
+        <div class='myimageDiv'>
+          <img class='myfoodImage' src='<%image%>'/>
+        </div>
+        <div class='mydescription'><%description%></div>
+        <div class='myprice'><%price%></div>
+        <button type='button' class='remove <%name%>'>Remove</button>
+        <button type='button' class='order <%name%>'>Order</button>
+    </div>
+</script>
+
+  </body>
+</html>
