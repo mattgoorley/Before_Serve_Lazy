@@ -13,6 +13,7 @@ APP_NAME = "Lazy Sunday"
 @app_front.route('/index')
 def index():
   if g.user:
+    print(g.user)
     return render_template('landing.html', app_id=APP_ID, app_name=APP_NAME, user=g.user)
   else:
     return render_template('login.html', app_id=APP_ID, app_name=APP_NAME)
@@ -35,6 +36,7 @@ def get_current_user():
     user = User.query.filter(User.id == result['uid']).first()
 
     if not user:
+
       graph = GraphAPI(result['access_token'])
       profile = graph.get_object('me?fields=email,first_name,last_name,name,link,id,gender')
 
@@ -43,12 +45,16 @@ def get_current_user():
       db.session.add(user)
 
     elif user.access_token != result['access_token']:
+
       user.access_token = result['access_token']
 
     session['user'] = dict(id=user.id, name=user.name, access_token=user.access_token)
 
+
   db.session.commit()
   g.user = session.get('user', None)
+
+
 
 @app_front.route('/food')
 def food():
