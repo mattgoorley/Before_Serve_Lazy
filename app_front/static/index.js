@@ -1,6 +1,23 @@
 
 $(document).ready(function () {
- $('.slideout-menu-toggle').on('click', function(event){
+
+    // Finding location w/ Long and Lat
+    function initiate_geolocation() {
+        navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+
+        }
+
+    function handle_geolocation_query(position){
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+        console.log(latitude)
+        console.log(longitude)
+        }
+
+    initiate_geolocation()
+
+    // Settings slideout menu
+    $('.slideout-menu-toggle').on('click', function(event){
         event.preventDefault();
         // create menu variables
         var slideoutMenu = $('.slideout-menu');
@@ -21,7 +38,8 @@ $(document).ready(function () {
         }
     });
 
-  $('.slideout-menu-likes-toggle').on('click', function(event){
+    // Likes slideout menu
+    $('.slideout-menu-likes-toggle').on('click', function(event){
         event.preventDefault();
         // create menu variables
         var slideoutMenu = $('.slideout-menu-likes');
@@ -41,4 +59,14 @@ $(document).ready(function () {
             }, 250);
         }
     });
+
+    // Selecting Food Button
+    // $('.btn-food').on('click', function(event){
+    //     event.preventDefault();
+
+    //     location.href="/food";
+    // })
+
+    // Selecting Movie Button
+
 });

@@ -48,6 +48,11 @@ body {
   border-bottom: 1px solid #e5e5e5;
   background-image: url("http://media3.giphy.com/media/cwCBshoHs4nbW/giphy.gif");
   background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 220px;
+  max-height: 70%;
+
+
 }
 
 .jumbotron h1 {

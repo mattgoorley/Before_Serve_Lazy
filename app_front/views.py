@@ -58,4 +58,10 @@ def get_current_user():
 
 @app_front.route('/food')
 def food():
-  return render_template('food.html')
+  return render_template('food.html', app_id=APP_ID, app_name=APP_NAME, user=g.user)
+
+@app_front.route('/movies')
+def movies():
+  return render_template('movies.html', app_id=APP_ID, app_name=APP_NAME, user=g.user)
+
+
