@@ -1,6 +1,7 @@
-
 $(document).ready(function () {
 
+    var latitude;
+    var longitude;
     // Finding location w/ Long and Lat
     function initiate_geolocation() {
         navigator.geolocation.getCurrentPosition(handle_geolocation_query);
@@ -12,6 +13,7 @@ $(document).ready(function () {
         longitude = position.coords.longitude;
         console.log(latitude)
         console.log(longitude)
+
         }
 
     initiate_geolocation()
@@ -61,11 +63,10 @@ $(document).ready(function () {
     });
 
     // Selecting Food Button
-    // $('.btn-food').on('click', function(event){
-    //     event.preventDefault();
-
-    //     location.href="/food";
-    // })
+    $('.btn-food').on('click', function(event){
+        event.preventDefault();
+        location.href="/food";
+    })
 
     // Selecting Movie Button
 
