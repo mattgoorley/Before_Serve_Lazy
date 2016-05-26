@@ -1,6 +1,6 @@
 from flask import render_template, session, request, g, url_for, json, jsonify, Flask, redirect
 from app_front import app_front, db
-from .models import User
+from .models import User, FoodLikes
 from magicbeanstalk.magicbeanstalk import Food, TheBook
 from facebook import get_user_from_cookie, GraphAPI
 
@@ -8,6 +8,7 @@ from facebook import get_user_from_cookie, GraphAPI
 SECRET_KEY = TheBook.book_secret
 APP_ID = TheBook.book_app_id
 APP_NAME = "Lazy Sunday"
+location = {}
 
 @app_front.route('/')
 @app_front.route('/index')
@@ -64,4 +65,16 @@ def food():
 def movies():
   return render_template('movies.html', app_id=APP_ID, app_name=APP_NAME, user=g.user)
 
+@app_front.route('/onload', methods=['POST'])
+def give_user():
+  print('in get_user POST')
+  print(location)
+  location["location"] = {"longitude": request.form["longitude"], "latitude": request.form["latitude"]}
+  print(location)
+  print(g.user)
+  return jsonify(location=location['location'])
 
+@app_front.route('/onload', methods=['GET'])
+def get_user():
+  print("in get_user GET")
+  return jsonify(location)

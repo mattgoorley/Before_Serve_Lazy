@@ -3,20 +3,28 @@ $(document).ready(function () {
     var latitude;
     var longitude;
     // Finding location w/ Long and Lat
-    function initiate_geolocation() {
-        navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+    // function initiate_geolocation() {
+    //     navigator.geolocation.getCurrentPosition(handle_geolocation_query);
 
-        }
+    // };
 
-    function handle_geolocation_query(position){
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-        console.log(latitude)
-        console.log(longitude)
+    // function handle_geolocation_query(position){
+    //     latitude = position.coords.latitude;
+    //     longitude = position.coords.longitude;
+    //     local = {"latitude": latitude, "longitude":longitude}
+    //     $.ajax({
+    //       method: "POST",
+    //       url:'/onload',
+    //       data: local,
+    //       datatype: "jsonp",
+    //       success: function(response){
+    //         console.log(response)
+    //       }
+    //     })
+    // };
 
-        }
 
-    initiate_geolocation()
+    // initiate_geolocation()
 
     // Settings slideout menu
     $('.slideout-menu-toggle').on('click', function(event){

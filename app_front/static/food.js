@@ -1,14 +1,14 @@
 $(document).ready(function(){
+  var __cache={};
   console.log("Hi")
   var slideCreationCounter = 1000
   var currentSlideCounter = 1000
   var nearbyMerchants;
 
-
   var getMerchants = function(){
-    var realLat = "40.7519171"
+    var realLat = __cache["location"]["latitude"]
     console.log(realLat)
-    var realLong = "-73.979685"
+    var realLong = __cache["location"]["longitude"]
     console.log("working" + realLong)
     $.ajax({
     method:'POST',
@@ -22,7 +22,21 @@ $(document).ready(function(){
 })
 }
 
-getMerchants();
+var getUser = function() {
+    $.ajax({
+      method: "GET",
+      url:'/onload',
+      datatype: "jsonp",
+      success: function(response){
+        __cache["user"] = response["user"]
+        __cache["location"] = response["location"]
+        console.log(__cache["location"])
+        getMerchants();
+      }
+      })
+  }
+  getUser()
+
   var otherRecommended = {}
   var getImages = function(){
       var dishNames = []
@@ -34,10 +48,12 @@ getMerchants();
         var merchant = nearbyMerchants[randomMerch]
         var recommended = merchant['summary']['recommended_items']
         var merchantId = merchant['id']
+        console.log(merchantId)
         var recommendedList = Object.keys(recommended)
         var length = recommendedList.length
         if(length != 0){
           var dishId = recommendedList[0]
+          console.log(dishId)
           var dishName = recommended[dishId]['name']
           var dishDescription = recommended[dishId]['description']
           var dishPrice = recommended[dishId]['price']
@@ -90,12 +106,14 @@ getMerchants();
     var classes = $(likedFood).children('.name').attr('class')
     var ids = classes.split(' ')
     var dishId = ids[0]
+    console.log(dishId)
     var merchantId = ids[1]
+    console.log(merchantId)
     var image = $(likedFood).children('.imageDiv').children('.foodImage').attr('src')
     var price = $(likedFood).children('.price').text()
     var description = $(likedFood).children('.description').text()
     var fullDish = {'name':name,'price':price,'image':image,'description':description,'dishId':dishId,'merchantId':merchantId}
-
+    var saveDish = {'name':name,'price':price,'image':image,'description':description,'dishId':dishId,'merchantId':merchantId}
     $.ajax({
       method:'POST',
       url:'http://localhost:8080/food/liked',
@@ -142,10 +160,10 @@ getMerchants();
       currentSlideCounter --
     }
   })
-  $('.myfoodbutton').on('click',function(event){
+  $('.slideout-menu-likes-toggle').on('click',function(event){
     event.preventDefault()
-    $('.slide').hide()
-    $('.swipe').hide()
+    // $('.slide').hide()
+    // $('.swipe').hide()
     var template = $('#myfood').html();
     Mustache.parse(template, ["<%","%>"]);
     var check = $('.myfoodstorage').length
@@ -178,7 +196,7 @@ getMerchants();
     $('.swipe').show()
     $('.slide').show()
   })
-  $('.content').on('click','.remove',function(event){
+  $('.myfoodstorage').on('click','.remove',function(event){
     event.preventDefault()
     var classes = this.getAttribute('class')
     var ids = classes.split(' ')

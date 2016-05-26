@@ -1,6 +1,6 @@
 from flask import request, json, jsonify, url_for
 from food_api import food_api, db
-from .models import FoodLikes
+from app_front.models import FoodLikes
 from magicbeanstalk.magicbeanstalk import Food
 from flask.ext.cors import cross_origin
 import requests
@@ -27,6 +27,8 @@ def image():
   name = dish['name']
   price = dish['price']
   description = dish['description']
+  dish_id = dish['dishId']
+  merchant_id = dish['merchantId']
   # bing_image_key = IMAGE_KEY
   # bing_headers = {"Ocp-Apim-Subscription-Key":bing_image_key}
   # bing_url_temp = 'https://bingapis.azure-api.net/api/v5/images/search?q={name}&count=1&offset=0&mkt=en-us&safeSearch=Strict'
@@ -41,4 +43,4 @@ def image():
   # else:
   #   image = image_response['value'][0]['contentUrl']
   image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7ITbPjeMfmpVljRAZ5bVXW89HaMQZhteKdGuZhdu1HhyOJiVWqg'
-  return jsonify(image=image,name=name,description=description,price=price)
+  return jsonify(image=image,name=name,description=description,price=price,merchantId=merchant_id,dishId=dish_id)

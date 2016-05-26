@@ -12,3 +12,31 @@
         <li><a class="btn btn-lg btn-success btn-food" role="button">Food</a></li>
       </ul>
   {% endblock %}
+
+  {%block scripts%}
+  <script>
+        function initiate_geolocation() {
+        navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+
+    };
+
+    function handle_geolocation_query(position){
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+        local = {"latitude": latitude, "longitude":longitude}
+        $.ajax({
+          method: "POST",
+          url:'/onload',
+          data: local,
+          datatype: "jsonp",
+          success: function(response){
+            console.log(response)
+          }
+        })
+    };
+
+
+    initiate_geolocation()
+
+  </script>
+  {%endblock%}

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
+from app_front import models
 
 food_api = Flask(__name__)
 food_api.config.from_object('config')
