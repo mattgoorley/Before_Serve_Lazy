@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    var myLikes = []
     var latitude;
     var longitude;
     // Finding location w/ Long and Lat
@@ -70,6 +70,18 @@ $(document).ready(function () {
         }
     });
 
+    var getLikes = function(){
+
+        $.ajax({
+            method:'GET',
+            url:'/liked',
+            datatype:'jsonp',
+            success:function(response){
+                console.log(response)
+            }
+        })
+    }
+    getLikes()
     // Selecting Food Button
     $('.btn-food').on('click', function(event){
         event.preventDefault();

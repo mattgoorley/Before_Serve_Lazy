@@ -77,4 +77,33 @@ def give_user():
 @app_front.route('/onload', methods=['GET'])
 def get_user():
   print("in get_user GET")
-  return jsonify(location)
+  return jsonify(location=location, user=g.user)
+
+@app_front.route('/liked',methods=['POST'])
+def liked():
+  print('in liked POST')
+  user_id = request.form['userId']
+  merchant_id = request.form['merchantId']
+  dish_id = request.form['dishId']
+  name = request.form['name']
+  description = request.form['description']
+  price = request.form['price']
+  image = request.form['image']
+  print(user_id)
+  save_dish = FoodLikes(user_id=user_id,merchant_id=merchant_id,dish_id=dish_id,name=name,description=description,price=price,image=image)
+  db.session.add(save_dish)
+  db.session.commit()
+  return jsonify(success='success')
+
+@app_front.route('/liked',methods=['GET'])
+def get_liked():
+  user_id = g.user['id']
+  saved_likes = FoodLikes.query.filter_by(user_id=user_id).all()
+
+  return jsonify(likes_name=saved_likes)
+
+
+
+
+
+

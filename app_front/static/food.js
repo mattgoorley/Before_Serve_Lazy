@@ -18,6 +18,7 @@ $(document).ready(function(){
     success:function(response){
       nearbyMerchants = response['merchants']['merchants']
       getImages()
+      console.log(__cache["user"])
   }
 })
 }
@@ -28,8 +29,11 @@ var getUser = function() {
       url:'/onload',
       datatype: "jsonp",
       success: function(response){
+        console.log("response: ")
+        console.log(response)
         __cache["user"] = response["user"]
-        __cache["location"] = response["location"]
+        __cache["location"] = response["location"]["location"]
+        console.log("user:" + __cache["user"])
         console.log(__cache["location"])
         getMerchants();
       }
@@ -109,15 +113,17 @@ var getUser = function() {
     console.log(dishId)
     var merchantId = ids[1]
     console.log(merchantId)
+    var user = __cache["user"]["id"]
+    console.log(user)
     var image = $(likedFood).children('.imageDiv').children('.foodImage').attr('src')
     var price = $(likedFood).children('.price').text()
     var description = $(likedFood).children('.description').text()
     var fullDish = {'name':name,'price':price,'image':image,'description':description,'dishId':dishId,'merchantId':merchantId}
-    var saveDish = {'name':name,'price':price,'image':image,'description':description,'dishId':dishId,'merchantId':merchantId}
+    var saveDish = {'userId':user,'name':name,'price':price,'image':image,'description':description,'dishId':dishId,'merchantId':merchantId}
     $.ajax({
       method:'POST',
-      url:'http://localhost:8080/food/liked',
-      data:fullDish,
+      url:'/liked',
+      data:saveDish,
       datatype:'jsonp',
       success:function(){
         console.log('success')
