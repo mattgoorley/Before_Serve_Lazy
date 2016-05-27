@@ -100,9 +100,27 @@ def get_liked():
   user_id = g.user['id']
   saved_likes = FoodLikes.query.filter_by(user_id=user_id).all()
 
-  return jsonify(likes_name=saved_likes)
+  likes = []
+  for i in saved_likes:
+    dish = {"merchantId": i.merchant_id,
+    "dishId": i.dish_id,
+    "name": i.name,
+    "description": i.description,
+    "price": i.price,
+    "image": i.image,
+    "created": i.created,
+    }
+    likes.append(dish)
+  return jsonify(likes_name=likes)
 
-
+@app_front.route('/liked',methods=['DELETE'])
+def remove_liked():
+  print("in remove liked")
+  to_remove = request.form["dishId"]
+  print(to_remove)
+  FoodLikes.query.filter_by(dish_id=to_remove).delete()
+  db.session.commit()
+  return jsonify(success='success')
 
 
 

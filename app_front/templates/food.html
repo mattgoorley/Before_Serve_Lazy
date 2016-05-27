@@ -27,7 +27,6 @@
 
 {% block scripts %}
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
   <script src="static/food.js"></script>
 
   <script id='postfood' type='x-tmpl-mustache'>
@@ -39,21 +38,6 @@
           <div class='description'><%description%></div>
           <div class='price'><%price%></div>
       </div>
-  </script>
-
-  <script id='myfood' type='x-tmpl-mustache'>
-  <div class='<%dishId%> shell'>
-    <div class='<%dishId%> <%merchantId%> dish'>
-      <h3 class='myname'><%name%></h3>
-          <div class='<%dishId%> <%merchantId%> myimageDiv'>
-            <img class='myfoodImage' src='<%image%>'/>
-          </div>
-          <div class='mydescription'><%description%></div>
-          <div class='myprice'><%price%></div>
-          <button type='button' class='remove <%dishId%> <%name%>'>Remove</button>
-          <button type='button' class='order <%name%>'>Order</button>
-      </div>
-    </div>
   </script>
 
   <script id='menuHead' type='x-tmpl-mustache'>

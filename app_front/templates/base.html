@@ -79,8 +79,22 @@
     </div> <!-- /container -->
 
     {% block scripts %} {% endblock %}
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="static/index.js"></script>
+    <script id='myfood' type='x-tmpl-mustache'>
+      <div class='<%dishId%> shell'>
+        <div class='<%dishId%> <%merchantId%> dish'>
+          <h3 class='myname'><%name%></h3>
+              <div class='<%dishId%> <%merchantId%> myimageDiv'>
+                <img class='myfoodImage' src='<%image%>'/>
+              </div>
+              <div class='mydescription'><%description%></div>
+              <div class='myprice'><%price%></div>
+              <button type='button' class='remove <%dishId%> <%name%>'>Remove</button>
+              <button type='button' class='order <%name%>'>Order</button>
+        </div>
+      </div>
+  </script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    var myLikes = []
+    var myLikes;
+    var sendLikes = []
     var latitude;
     var longitude;
     // Finding location w/ Long and Lat
@@ -68,6 +69,30 @@ $(document).ready(function () {
                 right: -slideoutMenuWidth
             }, 250);
         }
+
+            var template = $('#myfood').html();
+            Mustache.parse(template, ["<%","%>"]);
+            var check = $('.myfoodstorage').length
+            var length = myLikes.length
+            if(check!=0){
+              for(i=0;i<length;i++){
+              var display = myLikes[i]
+              $('.myfoodstorage').append(Mustache.render(template,display));
+              }
+              myLikes = []
+              $('.home').show()
+              $('.myfoodstorage').show()
+            }else{
+            var myFoodStorage = $('<div>',{class:"myfoodstorage"})
+            var homeButton = $('<button>',{class:'home',type:'button',text:'Home'})
+            $('.content').append(myFoodStorage)
+            $('.bar').append(homeButton)
+            for(i=0;i<length;i++){
+              var display = myLikes[i]
+              $('.myfoodstorage').append(Mustache.render(template,display));
+              }
+              myLikes = []
+            }
     });
 
     var getLikes = function(){
@@ -78,15 +103,38 @@ $(document).ready(function () {
             datatype:'jsonp',
             success:function(response){
                 console.log(response)
+                myLikes = response["likes_name"]
             }
         })
     }
     getLikes()
+
+    $('.myfoodstorage').on('click','.remove',function(event){
+    event.preventDefault()
+    var classes = this.getAttribute('class')
+    var ids = classes.split(' ')
+    var removeFood = ids[1]
+    console.log(removeFood)
+    var removeFoodClass = '.' + removeFood
+    $(removeFoodClass).remove()
+    $.ajax({
+        method: "DELETE",
+        url: '/liked',
+        data: {'dishId':removeFood},
+        datatype:'jsonp',
+        success: function(response){
+            console.log("food removed" + removeFood)
+        }
+    })
+
+  })
+
     // Selecting Food Button
     $('.btn-food').on('click', function(event){
         event.preventDefault();
         location.href="/food";
     })
+
 
     // Selecting Movie Button
 
