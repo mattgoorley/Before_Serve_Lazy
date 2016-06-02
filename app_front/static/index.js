@@ -1,31 +1,9 @@
 $(document).ready(function () {
     var myLikes;
-    var sendLikes = []
+    var myMovieLikes;
+    var sendLikes = [];
     var latitude;
     var longitude;
-    // Finding location w/ Long and Lat
-    // function initiate_geolocation() {
-    //     navigator.geolocation.getCurrentPosition(handle_geolocation_query);
-
-    // };
-
-    // function handle_geolocation_query(position){
-    //     latitude = position.coords.latitude;
-    //     longitude = position.coords.longitude;
-    //     local = {"latitude": latitude, "longitude":longitude}
-    //     $.ajax({
-    //       method: "POST",
-    //       url:'/onload',
-    //       data: local,
-    //       datatype: "jsonp",
-    //       success: function(response){
-    //         console.log(response)
-    //       }
-    //     })
-    // };
-
-
-    // initiate_geolocation()
 
     // Settings slideout menu
     $('.slideout-menu-toggle').on('click', function(event){
@@ -70,33 +48,55 @@ $(document).ready(function () {
             }, 250);
         }
 
-            var template = $('#myfood').html();
-            Mustache.parse(template, ["<%","%>"]);
-            var check = $('.myfoodstorage').length
-            var length = myLikes.length
-            if(check!=0){
-              for(i=0;i<length;i++){
-              var display = myLikes[i]
-              $('.myfoodstorage').append(Mustache.render(template,display));
-              }
-              myLikes = []
-              $('.home').show()
-              $('.myfoodstorage').show()
-            }else{
-            var myFoodStorage = $('<div>',{class:"myfoodstorage"})
-            var homeButton = $('<button>',{class:'home',type:'button',text:'Home'})
+        // filling in the food likes column
+        var template = $('#myfood').html();
+        Mustache.parse(template, ["<%","%>"]);
+        var check = $('.myfoodstorage').length
+        var length = myLikes.length
+        if(check!=0){
+          for(i=0;i<length;i++){
+          var display = myLikes[i]
+          $('.myfoodstorage').append(Mustache.render(template,display));
+          }
+          myLikes = []
+          $('.home').show()
+          $('.myfoodstorage').show()
+        }else{
+        var myFoodStorage = $('<div>',{class:"myfoodstorage"})
+        var homeButton = $('<button>',{class:'home',type:'button',text:'Home'})
+        $('.content').append(myFoodStorage)
+        $('.bar').append(homeButton)
+        for(i=0;i<length;i++){
+          var display = myLikes[i]
+          $('.myfoodstorage').append(Mustache.render(template,display));
+          }
+          myLikes = []
+        }
+
+        // filling in the movie likes template
+        var template = $('#myMovie').html();
+        Mustache.parse(template, ["<%","%>"]);
+        var check = $('.mymoviestorage').length
+        console.log(check)
+        var length = myMovieLikes.length
+        if(check!=0){
+          for(i=0;i<length;i++) {
+            var display = myMovieLikes[i]
+            $('.mymoviestorage').append(Mustache.render(template,display));
+          }
+
+          myMovieLikes = []
+          $('.mymoviestorage').show()
+        }
+        else{
+            var myMovieStorage = $('<div>',{class:"mymoviestorage"})
             $('.content').append(myFoodStorage)
-            $('.bar').append(homeButton)
-            for(i=0;i<length;i++){
-              var display = myLikes[i]
-              $('.myfoodstorage').append(Mustache.render(template,display));
-              }
-              myLikes = []
-            }
+        }
+
     });
 
+    // Getting the movie and food likes from the database
     var getLikes = function(){
-
         $.ajax({
             method:'GET',
             url:'/liked',
@@ -106,36 +106,51 @@ $(document).ready(function () {
                 myLikes = response["likes_name"]
             }
         })
+        $.ajax({
+            method:'GET',
+            url:'/likedmovie',
+            datatype:'jsonp',
+            success:function(response){
+                myMovieLikes = response["likes_name"]
+            }
+        })
     }
     getLikes()
 
     $('.myfoodstorage').on('click','.remove',function(event){
-    event.preventDefault()
-    var classes = this.getAttribute('class')
-    var ids = classes.split(' ')
-    var removeFood = ids[1]
-    console.log(removeFood)
-    var removeFoodClass = '.' + removeFood
-    $(removeFoodClass).remove()
-    $.ajax({
-        method: "DELETE",
-        url: '/liked',
-        data: {'dishId':removeFood},
-        datatype:'jsonp',
-        success: function(response){
-            console.log("food removed" + removeFood)
-        }
+        event.preventDefault()
+        var classes = this.getAttribute('class')
+        var ids = classes.split(' ')
+        var removeFood = ids[1]
+        var removeFoodClass = '.' + removeFood
+        $(removeFoodClass).remove()
+        $.ajax({
+            method: "DELETE",
+            url: '/liked',
+            data: {'dishId':removeFood},
+            datatype:'jsonp',
+            success: function(response){
+                console.log("success")
+            }
+        })
+
     })
 
-  })
-
-    // Selecting Food Button
-    $('.btn-food').on('click', function(event){
-        event.preventDefault();
-        location.href="/food";
+    $('.mymoviestorage').on('click','.remove',function(event){
+        event.preventDefault()
+        console.log("problem here")
+        var title = this.getAttribute('.title')
+        var released = this.getAttribute('.released')
+        $(this).remove()
+        $.ajax({
+            method: "DELETE",
+            url: '/likedmovie',
+            data: {'title':title,'released':released},
+            datatype:'jsonp',
+            success: function(response){
+                console.log(response)
+            }
+        })
     })
-
-
-    // Selecting Movie Button
 
 });

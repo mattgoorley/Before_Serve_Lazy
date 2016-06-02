@@ -33,8 +33,9 @@
       <div class="slideout-menu-likes">
         <h3>Likes <a href="#" class="slideout-menu-likes-toggle">×</a></h3>
         <ul class="myfoodstorage">
-          <li><a href="#">Rest 1 <i class="fa fa-angle-right"></i></a></li>
-          <li><a href="#">Sushi Place <i class="fa fa-angle-right"></i></a></li>
+          <li><a href="#">Cheeze <i class="fa fa-angle-right"></i></a></li>
+        </ul>
+        <ul class="mymoviestorage">
           <li><a href="#">Cheeze <i class="fa fa-angle-right"></i></a></li>
         </ul>
       </div>
@@ -65,7 +66,7 @@
         {% block subcontent %}
         {% endblock %}
         <div class="col-lg-12">
-          <h4>Welcome {{ user.name }}</h4>
+          <h4></h4>
           <p></p>
 
         </div>
@@ -95,6 +96,20 @@
               <button type='button' class='order <%name%>'>Order</button>
         </div>
       </div>
-  </script>
+    </script>
+    <script id='myMovie' type='x-tmpl-mustache'>
+      <div class='shell'>
+        <div class='film <%title%>'>
+          <h3 class='title'><%title%></h3>
+            <div class='myimageDiv'>
+              <img class='foodImage' src='<%poster%>'/>
+            </div>
+            <div class='description'><%overview%></div>
+            <div class='rating'><%rating%></div>
+            <div class='released'><%released%></div>
+            <button type='button' class='remove'>Remove</button>
+        </div>
+      </div>
+    </script>
   </body>
 </html>

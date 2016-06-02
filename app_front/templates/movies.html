@@ -1,7 +1,40 @@
 {% extends "base.html" %}
+{%block links%}
+  <link href="static/stylesheets/movies.css" rel="stylesheet">
+{% endblock %}
 {% block content %}
-<div class="slide">
-  <h1>This is where the card will go</h1>
+<div class="cards">
+  <div class="content">
+
+  </div>
 </div>
 {% endblock %}
 
+
+{% block subcontent %}
+  <ul class="likers">
+    <li>
+    <button type="button" class='dislikebutton swipe'>Dislike</button>
+    </li>
+    <li>
+    <button type="button" class="likebutton swipe">Like</button>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block scripts %}
+<script src="static/movie.js"></script>
+
+<script id='movie_slides' type='x-tmpl-mustache'>
+    <div class='<%counter%> slide' style="z-index:<%counter%>;">
+        <h5 class='title'><%title%></h5>
+        <div class='imageDiv'>
+            <img class='foodImage' src='<%poster%>'/>
+          </div>
+        <div class='description'><%overview%></div>
+        <div class='rating'>Score: <%rating%></div>
+        <div class='released'><%released%></div>
+    </div>
+</script>
+
+{% endblock %}

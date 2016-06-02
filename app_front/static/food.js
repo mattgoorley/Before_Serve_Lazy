@@ -7,9 +7,7 @@ $(document).ready(function(){
 
   var getMerchants = function(){
     var realLat = __cache["location"]["latitude"]
-    console.log(realLat)
     var realLong = __cache["location"]["longitude"]
-    console.log("working" + realLong)
     $.ajax({
     method:'POST',
     url:'http://localhost:8080/food/merchants',
@@ -18,7 +16,6 @@ $(document).ready(function(){
     success:function(response){
       nearbyMerchants = response['merchants']['merchants']
       getImages()
-      console.log(__cache["user"])
   }
 })
 }
@@ -29,12 +26,8 @@ var getUser = function() {
       url:'/onload',
       datatype: "jsonp",
       success: function(response){
-        console.log("response: ")
-        console.log(response)
-        __cache["user"] = response["user"]
+        __cache["userId"] = response["id"]
         __cache["location"] = response["location"]["location"]
-        console.log("user:" + __cache["user"])
-        console.log(__cache["location"])
         getMerchants();
       }
       })
@@ -52,12 +45,10 @@ var getUser = function() {
         var merchant = nearbyMerchants[randomMerch]
         var recommended = merchant['summary']['recommended_items']
         var merchantId = merchant['id']
-        console.log(merchantId)
         var recommendedList = Object.keys(recommended)
         var length = recommendedList.length
         if(length != 0){
           var dishId = recommendedList[0]
-          console.log(dishId)
           var dishName = recommended[dishId]['name']
           var dishDescription = recommended[dishId]['description']
           var dishPrice = recommended[dishId]['price']
@@ -90,11 +81,8 @@ var getUser = function() {
             var template = $('#postfood').html();
             Mustache.parse(template, ["<%","%>"]);
             var display = $.extend(response,{'num':slideCreationCounter});
-            console.log(slideCreationCounter)
             $('.content').append(Mustache.render(template,display));
             slideCreationCounter--
-            console.log("is this where it fucks up " + slideCreationCounter)
-
           }
       })
 
@@ -110,10 +98,8 @@ var getUser = function() {
     var classes = $(likedFood).children('.name').attr('class')
     var ids = classes.split(' ')
     var dishId = ids[0]
-    console.log(dishId)
     var merchantId = ids[1]
-    console.log(merchantId)
-    var user = __cache["user"]["id"]
+    var user = __cache["userId"]
     console.log(user)
     var image = $(likedFood).children('.imageDiv').children('.foodImage').attr('src')
     var price = $(likedFood).children('.price').text()
@@ -265,11 +251,8 @@ var getUser = function() {
     // var data = {'name':name}
     for(var z=0;z<otherSlidesLength;z++){
       var currentSlide = otherSlides[z]
-      console.log('currentSlide in for loop')
-      console.log(currentSlide)
       var name = currentSlide['name']
       var data = {'name':name}
-      console.log(data)
       var quickImage = function(currentSlide,data){
         $.ajax({
           method:'POST',
@@ -281,8 +264,6 @@ var getUser = function() {
             currentSlide['image'] = image
             var otherSlideTemplate = $('#otherRecommended').html();
             Mustache.parse(otherSlideTemplate,["<%","%>"]);
-            console.log('currentSlide in ajax')
-            console.log(currentSlide)
             $(closeLook).append(Mustache.render(otherSlideTemplate,currentSlide))
 
           }
@@ -318,8 +299,6 @@ var getUser = function() {
        for(var n=0;n<storage.length;n++){
         var currentThing = storage[n]
         if(currentThing.constructor === Array){
-          // console.log('possible problem')
-          // console.log(currentThing[1])
           if(currentThing[1][0]['type'] === 'menu'){
             var currentThingChildren = currentThing[1][0]['children']
             var currentThingLength = currentThingChildren.length

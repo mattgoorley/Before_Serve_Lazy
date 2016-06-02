@@ -1,9 +1,9 @@
 from flask import render_template, session, request, g, url_for, json, jsonify, Flask, redirect
 from app_front import app_front, db
-from .models import User, FoodLikes
-from magicbeanstalk.magicbeanstalk import Food, TheBook
+from .models import User, FoodLikes, MovieLikes
+from magicbeanstalk.magicbeanstalk import Food, TheBook, Movie
 from facebook import get_user_from_cookie, GraphAPI
-
+import requests
 
 SECRET_KEY = TheBook.book_secret
 APP_ID = TheBook.book_app_id
@@ -67,29 +67,25 @@ def movies():
 
 @app_front.route('/onload', methods=['POST'])
 def give_user():
-  print('in get_user POST')
-  print(location)
   location["location"] = {"longitude": request.form["longitude"], "latitude": request.form["latitude"]}
-  print(location)
-  print(g.user)
   return jsonify(location=location['location'])
 
 @app_front.route('/onload', methods=['GET'])
 def get_user():
-  print("in get_user GET")
-  return jsonify(location=location, user=g.user)
+  user_id = g.user['id']
+  return jsonify(location=location, user=g.user, id=str(user_id))
 
 @app_front.route('/liked',methods=['POST'])
 def liked():
   print('in liked POST')
   user_id = request.form['userId']
+  print(user_id)
   merchant_id = request.form['merchantId']
   dish_id = request.form['dishId']
   name = request.form['name']
   description = request.form['description']
   price = request.form['price']
   image = request.form['image']
-  print(user_id)
   save_dish = FoodLikes(user_id=user_id,merchant_id=merchant_id,dish_id=dish_id,name=name,description=description,price=price,image=image)
   db.session.add(save_dish)
   db.session.commit()
@@ -119,6 +115,67 @@ def remove_liked():
   to_remove = request.form["dishId"]
   print(to_remove)
   FoodLikes.query.filter_by(dish_id=to_remove).delete()
+  db.session.commit()
+  return jsonify(success='success')
+
+MOVIE_KEY = Movie.movie_key
+
+@app_front.route('/getmovies',methods=['GET'])
+
+def get_movies():
+  movie_key = MOVIE_KEY
+  movie_url = "http://api.themoviedb.org/3/movie/popular" + "?api_key=" + movie_key
+  movies_return = requests.get(movie_url).json()
+  movies_list = movies_return['results']
+
+  return jsonify(movies=movies_list)
+
+@app_front.route('/gettv',methods=['GET'])
+
+def get_tv():
+  movie_key = MOVIE_KEY
+  tv_url = "http://api.themoviedb.org/3/" + movie_key + "&="
+  # for poster
+  #   http://image.tmdb.org/t/p/
+  pass
+
+@app_front.route('/likedmovie',methods=['POST'])
+def liked_movie():
+  print('in liked_movie POST')
+  user_id = request.form['userId']
+  title = request.form['title']
+  rating = request.form['rating']
+  overview = request.form['overview']
+  poster = request.form['poster']
+  released = request.form['released']
+  save_movie = MovieLikes(user_id=user_id,title=title,rating=rating,overview=overview,poster=poster,released=released)
+  db.session.add(save_movie)
+  db.session.commit()
+  return jsonify(success='success')
+
+@app_front.route('/likedmovie',methods=['GET'])
+def get_liked_movies():
+  user_id = g.user['id']
+  saved_movie_likes = MovieLikes.query.filter_by(user_id=user_id).all()
+  likes = []
+  for i in saved_movie_likes:
+    movie = {
+    "user_id": i.user_id,
+    "title": i.title,
+    "rating": i.rating,
+    "overview": i.overview,
+    "poster": i.poster,
+    "released": i.released,
+    "created": i.created,
+    }
+    likes.append(movie)
+  return jsonify(likes_name=likes)
+
+@app_front.route('/likedmovie',methods=['DELETE'])
+def remove_liked_movies():
+  title = request.form["title"]
+  released = request.form["released"]
+  MovieLikes.query.filter_by(title=title,released=released).delete()
   db.session.commit()
   return jsonify(success='success')
 
