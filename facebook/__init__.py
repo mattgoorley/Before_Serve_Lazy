@@ -194,11 +194,13 @@ class GraphAPI(object):
             method = "POST"
 
         if self.access_token:
+
             if post_args is not None:
                 post_args["access_token"] = self.access_token
             else:
 
                 args["access_token"] = self.access_token
+
 
         try:
 
@@ -321,20 +323,25 @@ class GraphAPIError(Exception):
         self.result = result
         self.code = None
         try:
-            self.type = result["error_code"]
-        except:
-            self.type = ""
 
+            self.type = result["error_code"]
+
+        except:
+
+            self.type = ""
         # OAuth 2.0 Draft 10
         try:
+
             self.message = result["error_description"]
         except:
             # OAuth 2.0 Draft 00
             try:
+
                 self.message = result["error"]["message"]
                 self.code = result["error"].get("code")
                 if not self.type:
                     self.type = result["error"].get("type", "")
+
             except:
                 # REST server style
                 try:
@@ -362,6 +369,7 @@ def get_user_from_cookie(cookies, app_id, app_secret):
     cookie = cookies.get("fbsr_" + app_id, "")
 
     if not cookie:
+
         return None
     parsed_request = parse_signed_request(cookie, app_secret)
 

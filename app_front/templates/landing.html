@@ -1,18 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="center">
-    <h3>What you want hoe</h3>
-
-
-    <iframe width="640" height="360" src="https://www.youtube.com/embed/pCOb6Fykxz0?autoplay=1" frameborder="0" allowfullscreen></iframe>
-
-
-
-    <div class="food">FOOD</div>
-
-    <div class="movies">MOVIES</div>
-
-    <div id="status"></div>
 
 </div>
 {% endblock %}
+
+  {% block subcontent %}
+      <ul class="twochoice">
+        <li><a class="btn btn-lg btn-success btn-movies" href="/movies" role="button">Movies</a></li>
+
+        <li><a class="btn btn-lg btn-success btn-food" href="/food"role="button">Food</a></li>
+      </ul>
+  {% endblock %}
+
+  {%block scripts%}
+  <script>
+        function initiate_geolocation() {
+        navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+
+    };
+
+    function handle_geolocation_query(position){
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+        local = {"latitude": latitude, "longitude":longitude}
+        $.ajax({
+          method: "POST",
+          url:'/onload',
+          data: local,
+          datatype: "jsonp",
+          success: function(response){
+            console.log(response)
+          }
+        })
+    };
+
+
+    initiate_geolocation()
+
+  </script>
+  {%endblock%}

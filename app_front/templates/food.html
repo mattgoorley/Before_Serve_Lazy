@@ -1,51 +1,75 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Lazy Sunday</title>
-    <link rel="stylesheet" type="text/css" href="static/food.css">
-  </head>
 
-  <body>
-    <h3>Got on dis!</h3>
-      <div>You want dis stuff?</div>
-    <nav class="bar">
-      <button type="button" class="likebutton swipe">Like</button>
-      <button type="button" class='dislikebutton swipe'>Dislike</button>
-      <button type="button" class='myfoodbutton'>My Food</button>
-    </nav>
-    <div class="container">
-      <div class="content">
+{% extends "base.html" %}
+{%block links%}
+  <link href="static/stylesheets/food.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="cards">
+  <div class="content">
+
+  </div>
+</div>
+{% endblock %}
+
+{% block subcontent %}
+
+
+
+  <ul class="likers">
+    <li>
+    <button type="button" class='dislikebutton swipe'>Dislike</button>
+    </li>
+    <li>
+    <button type="button" class="likebutton swipe">Like</button>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block scripts %}
+
+  <script src="static/food.js"></script>
+
+  <script id='postfood' type='x-tmpl-mustache'>
+      <div class='<%num%> slide' style="z-index:<%num%>;">
+          <h5 class='<%dishId%> <%merchantId%> name'><%name%></h5>
+          <div class='<%dishId%> <%merchantId%> imageDiv'>
+            <img class='foodImage' src='<%image%>'/>
+          </div>
+          <div class='description'><%description%></div>
+          <div class='price'><%price%></div>
       </div>
+  </script>
+
+  <script id='menuHead' type='x-tmpl-mustache'>
+    <div class='<%merchMenuId%> <%menuId%> miniMenu'>
+      <h3 class='<%menuId%> menuName'><%menuName%></h3>
     </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+  </script>
 
-  <!-- <script src='foodmust.html'></script> -->
+  <script id='menuItem' type='x-tmpl-mustache'>
+  <div class='<%menuItemId%> <%menuId%> menuItem'>
+    <div class='menuItemName'><%menuItemName%></div>
+    <div class='menuItemDescription'><%menuItemDescription%></div>
+    <div class='menuItemPrice'><%menuItemPrice%></div>
+    <button type='button' class='menuOrder <%menuItemId%>'>Order</button>
+  </div>
+  </script>
 
+  <script id='allRecommended' type='x-tmpl-mustache'>
+  <div class='<%allDishId%> <%allMerchantId%> closeLook'>
+    <button type='button' class='<%allDishId%> previous'>Previous</button>
+    <button type='button' class='<%allDishId%> next'>Next</button>
+  </div>
+  </script>
 
-<script src='static/food.js'></script>
-<script id='postfood' type='x-tmpl-mustache'>
-    <div class='<%num%> slide' style="z-index:<%num%>;">
-      <h3 class='name'><%name%></h3>
-        <div class='imageDiv'>
-          <img class='foodImage' src='<%image%>'/>
+  <script id='otherRecommended' type='x-tmpl-mustache'>
+  <div class='<%allDishId%> otherSlide' style="z-index:<%zBoi%>;">
+     <h3 class='<%allDishId%> <%allMerchantId%> name'><%name%></h3>
+        <div class='<%allDishId%> <%allMerchantId%> allImageDiv'>
+          <img class='allFoodImage' src='<%image%>'/>
         </div>
-        <div class='description'><%description%></div>
-        <div class='price'><%price%></div>
-    </div>
-</script>
-<script id='myfood' type='x-tmpl-mustache'>
-  <div class='<%name%> dish'>
-    <h3 class='myname'><%name%></h3>
-        <div class='myimageDiv'>
-          <img class='myfoodImage' src='<%image%>'/>
-        </div>
-        <div class='mydescription'><%description%></div>
-        <div class='myprice'><%price%></div>
-        <button type='button' class='remove <%name%>'>Remove</button>
-        <button type='button' class='order <%name%>'>Order</button>
-    </div>
-</script>
+        <div class='allDescription'><%description%></div>
+        <div class='allPrice'><%price%></div>
+  </script>
 
-  </body>
-</html>
+{% endblock %}

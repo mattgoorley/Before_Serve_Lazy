@@ -13,4 +13,30 @@ class User(db.Model):
   email = db.Column(db.String, nullable=False)
   link = db.Column(db.String, nullable=False)
   gender = db.Column(db.String, nullable=True)
+  # longitude =  db.Column(db.String, nullable=False)
+  # latitude = db.Column(db.String, nullable=False)
+
+class FoodLikes(db.Model):
+  __foodLikes__ = 'food_likes'
+  pk = db.Column(db.Integer, primary_key=True)
+  user_id = db.Column(db.Integer, nullable=False)
+  merchant_id = db.Column(db.Integer, nullable=False)
+  dish_id = db.Column(db.Integer, nullable=False)
+  name = db.Column(db.String, nullable=False)
+  description = db.Column(db.String,nullable=True)
+  price = db.Column(db.Integer,nullable=False)
+  image = db.Column(db.String,nullable=True)
+  created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+  ordered_from = db.Column(db.Boolean, default=False)
+
+class MovieLikes(db.Model):
+  __movieLikes__ = 'movie_likes'
+  pk = db.Column(db.Integer, primary_key=True)
+  user_id = db.Column(db.Integer, nullable=False)
+  title = db.Column(db.String, nullable=False)
+  rating = db.Column(db.String, nullable=False)
+  overview = db.Column(db.String, nullable=False)
+  poster = db.Column(db.String, nullable=False)
+  released = db.Column(db.String, nullable=False)
+  created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 

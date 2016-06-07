@@ -1,17 +1,115 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Lazy Sunday</title>
-</head>
-<body>
-    <h1>Lazy Sunday App by Dat Boi</h1>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Lazy Sunday Icon -->
+    <link rel="icon" href="static/LZ_images/lazysundaysquare.png">
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="static/stylesheets/index.css" rel="stylesheet">
+    {%block links%}
+
+    {%endblock%}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <title>Lazy Sunday Login and Landing Page</title>
+
+  </head>
+
+  <body>
+
     <div class="container">
-        {% block content %} {% endblock %}
-    </div>
 
+      <div class="slideout-menu">
+        <h3>Settings <a href="#" class="slideout-menu-toggle">×</a></h3>
+        <ul>
+          <li><a href="#">Stuff <i class="fa fa-angle-right"></i></a></li>
+          <li><a href="#">Sample <i class="fa fa-angle-right"></i></a></li>
+          <li><a href="#">Whatnot <i class="fa fa-angle-right"></i></a></li>
+        </ul>
+      </div>
 
-  {% block links %} {% endblock %}
+      <div class="slideout-menu-likes">
+        <h3>Likes <a href="#" class="slideout-menu-likes-toggle">×</a></h3>
+        <ul class="myfoodstorage">
+          <li><a href="#">Cheeze <i class="fa fa-angle-right"></i></a></li>
+        </ul>
+        <ul class="mymoviestorage">
+          <li><a href="#">Cheeze <i class="fa fa-angle-right"></i></a></li>
+        </ul>
+      </div>
 
+      <div class="header clearfix">
 
-</body>
+        <nav>
+          <ul class="nav nav-pills slide-menus">
+
+            <li role="presentation" class="slider-settings slide-menu-inverse settings" id="slide-settings">
+              <a class="slideout-menu-toggle" href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+              </a></li>
+
+            <li role="presentation" class="slider-likes slide-menu-inverse likes" id="slide-likes">
+              <a class="slideout-menu-likes-toggle" href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </a></li>
+
+          </ul>
+
+        </nav>
+      </div>
+
+      <div class="jumbotron">
+          {% block content %} {% endblock %}
+      </div>
+
+      <div class="row marketing">
+        {% block subcontent %}
+        {% endblock %}
+        <div class="col-lg-12">
+          <h4></h4>
+          <p></p>
+
+        </div>
+
+      </div>
+
+      <footer class="footer">
+        <p>&copy; 2015 Lazy Sunday</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    {% block scripts %} {% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="static/index.js"></script>
+    <script id='myfood' type='x-tmpl-mustache'>
+      <div class='<%dishId%> shell'>
+        <div class='<%dishId%> <%merchantId%> dish'>
+          <h3 class='myname'><%name%></h3>
+              <div class='<%dishId%> <%merchantId%> myimageDiv'>
+                <img class='myfoodImage' src='<%image%>'/>
+              </div>
+              <div class='mydescription'><%description%></div>
+              <div class='myprice'><%price%></div>
+              <button type='button' class='remove <%dishId%> <%name%>'>Remove</button>
+              <button type='button' class='order <%name%>'>Order</button>
+        </div>
+      </div>
+    </script>
+    <script id='myMovie' type='x-tmpl-mustache'>
+      <div class='shell'>
+        <div class='film <%title%>'>
+          <h3 class='title'><%title%></h3>
+            <div class='myimageDiv'>
+              <img class='foodImage' src='<%poster%>'/>
+            </div>
+            <div class='description'><%overview%></div>
+            <div class='rating'><%rating%></div>
+            <div class='released'><%released%></div>
+            <button type='button' class='remove'>Remove</button>
+        </div>
+      </div>
+    </script>
+  </body>
 </html>
