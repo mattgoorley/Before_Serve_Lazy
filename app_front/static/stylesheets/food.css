@@ -11,13 +11,14 @@
   width: 100%;
 }
 .foodImage{
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .imageDiv{
-  max-width: 200px;
-  max-height: 300px;
-  border: 3px solid black;
+  width: 200px;
+  height: 200px;
+  border: 5px solid grey;
+  border-radius: 5px;
   position: relative;
   display: inline-block;
 }
@@ -26,9 +27,11 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color:green;
+  background-color:black;
   top: 0;
   left: 0;
+  overflow-y:auto;
+  color:white;
 }
 
 /*.jumbotron .content nth-child {
@@ -37,7 +40,7 @@
 
 .myfoodstorage{
   /*position:absolute;*/
-  background-color:red;
+  background-color:#686868;
 }
 .myfoodImage{
   max-width: 100%;
@@ -47,6 +50,17 @@
   max-width: 200px;
   max-height: 300px;
   border: 3px solid black;
+}
+.imageDiv:hover{
+  border-color:#00e600;
+  cursor:pointer;
+  cursor:hand;
+}
+
+.myimageDiv:hover{
+  border-color:#00e600;
+  cursor:pointer;
+  cursor:hand;
 }
 
 /*.otherSlide{
@@ -61,14 +75,29 @@
 .allImageDiv{
   max-width: 200px;
   max-height: 300px;
-  border: 3px solid black;
+  border: 5px solid black;
 }
 .description{
   position: relative;
 }
 .price {
   position: relative;
+}
+.merchant {
+  text-decoration:underline;
+}
 
+.menuName:hover{
+  cursor:pointer;
+  cursor:hand;
+  color:#00e600;
+}
+.menuItemPrice{
+  font-style:italic;
+}
+
+.menuItemName{
+  text-decoration:underline;
 }
 
 .likers li{
@@ -76,9 +105,14 @@
   padding-right: 40px;
 }
 
+
 .dislikebutton {
   float: left;
 }
 .likebutton {
   float: right;
+}
+
+.jumbotron {
+  background-image: url("https://media.giphy.com/media/1D73OhwOoahyg/giphy.gif")
 }

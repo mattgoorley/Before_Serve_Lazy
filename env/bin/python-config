@@ -1,4 +1,4 @@
-#!/Users/matthewgoorley/Desktop/LazySunday/APPGOD/env/bin/python
+#!/Users/matthewgoorley/Desktop/LazySunday/Project/LazySunday/env/bin/python
 
 import sys
 import getopt

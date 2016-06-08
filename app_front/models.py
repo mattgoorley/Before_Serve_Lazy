@@ -20,7 +20,9 @@ class FoodLikes(db.Model):
   __foodLikes__ = 'food_likes'
   pk = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, nullable=False)
+  url = db.Column(db.String, nullable=True)
   merchant_id = db.Column(db.Integer, nullable=False)
+  merchant_name = db.Column(db.String, nullable=True)
   dish_id = db.Column(db.Integer, nullable=False)
   name = db.Column(db.String, nullable=False)
   description = db.Column(db.String,nullable=True)

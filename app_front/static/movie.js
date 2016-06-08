@@ -29,8 +29,8 @@ $(document).ready(function(){
           var title = movie['title']
           var rating = movie['vote_average']
           var overview = movie['overview']
-          var poster = "http://image.tmdb.org/t/p/w92" + movie['poster_path']
-          var released = movie['released']
+          var poster = "http://image.tmdb.org/t/p/w154" + movie['poster_path']
+          var released = movie['release_date']
           var template = $('#movie_slides').html();
           var display = {"title":title,"rating":rating,"overview":overview,"poster":poster,"released":released,"counter":counter}
           Mustache.parse(template, ["<%","%>"])
@@ -44,6 +44,7 @@ $(document).ready(function(){
 
   $('.dislikebutton').on('click',function(event){
     $('.content').children(':first').remove()
+
     if(swiped % 20 === 0){
       getMovies()
     }
@@ -54,22 +55,26 @@ $(document).ready(function(){
   $('.likebutton').on('click',function(event){
     event.preventDefault()
     var slide = $('.content').children(':first')
-    console.log(slide)
     var user = __cache["userId"]
     var title = slide.children('.title').text()
-    console.log(title)
     var rating = slide.children('.rating').text()
     var overview = slide.children('.description').text()
-    var poster = slide.children('.imageDiv').children('.foodImage').prop("src")
+    var poster = slide.children('.imageDiv').children('.movieImage').prop("src")
     var released = slide.children('.released').text()
     saveMovie = {'userId':user, "title":title, 'rating':rating, 'overview':overview, "poster":poster, 'released':released}
+
+    var template = $('#myMovie').html();
+    Mustache.parse(template, ["<%","%>"]);
+    $('.mymoviestorage').append(Mustache.render(template,saveMovie))
+
     $('.content').children(':first').remove()
+
 
     if(swiped % 20 === 0){
       getMovies()
     }
     swiped ++
-    console.log(saveMovie)
+
     $.ajax({
       method:'POST',
       url:'/likedmovie',
@@ -77,30 +82,26 @@ $(document).ready(function(){
       datatype:'jsonp',
       success:function(){
         console.log('success')
-        myMovie.push(saveMovie)
       }
     })
   })
 
-  var template = $('#myMovie').html();
-  Mustache.parse(template, ["<%","%>"]);
-  var check = $('.mymoviestorage').length
+  var refreshLikes = function() {
+    var template = $('#myMovie').html();
+    Mustache.parse(template, ["<%","%>"]);
+    if(check!=0){
+      for(i=0;i<length;i++) {
+        var display = myMovieLikes[i]
+        $('.mymoviestorage').append(Mustache.render(template,display));
+      }
 
-  var length = myMovie.length
-  if(check!=0){
-    for(i=0;i<length;i++) {
-      var display = myMovieLikes[i]
-      $('.mymoviestorage').append(Mustache.render(template,display));
+      myMovie = []
+      $('.mymoviestorage').hide()
     }
-
-    myMovie = []
-    $('.mymoviestorage').show()
+    else{
+      var myMovieStorage = $('<div>',{class:"mymoviestorage"})
+      $('.content').append(myMovieStorage)
+    }
   }
-  else{
-    var myMovieStorage = $('<div>',{class:"mymoviestorage"})
-    $('.content').append(myMovieStorage)
-  }
-
-
 
 })

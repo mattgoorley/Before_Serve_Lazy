@@ -17,10 +17,10 @@
 
   <ul class="likers">
     <li>
-    <button type="button" class='dislikebutton swipe'>Dislike</button>
+    <button type="button" class='dislikebutton swipe btn btn-default btn-lg'><span class="glyphicon glyphicon-remove"></span></button>
     </li>
     <li>
-    <button type="button" class="likebutton swipe">Like</button>
+    <button type="button" class="likebutton swipe btn btn-default btn-lg"><span class="glyphicon glyphicon-ok"></span></button>
     </li>
   </ul>
 {% endblock %}
@@ -30,29 +30,15 @@
   <script src="static/food.js"></script>
 
   <script id='postfood' type='x-tmpl-mustache'>
-      <div class='<%num%> slide' style="z-index:<%num%>;">
-          <h5 class='<%dishId%> <%merchantId%> name'><%name%></h5>
+      <div class='<%num%> <%merchantId%> slide' style="z-index:<%num%>;">
+      <h5 class='<%dishId%> <%merchantId%> merchant'><%merchantName%></h5>
+          <h5 class='<%dishId%> <%merchantId%> <%url%> <%dishName%> <%merchantName%> name'><%dishName%></h5>
           <div class='<%dishId%> <%merchantId%> imageDiv'>
             <img class='foodImage' src='<%image%>'/>
           </div>
           <div class='description'><%description%></div>
-          <div class='price'><%price%></div>
+          <div class='price'>$<%price%></div>
       </div>
-  </script>
-
-  <script id='menuHead' type='x-tmpl-mustache'>
-    <div class='<%merchMenuId%> <%menuId%> miniMenu'>
-      <h3 class='<%menuId%> menuName'><%menuName%></h3>
-    </div>
-  </script>
-
-  <script id='menuItem' type='x-tmpl-mustache'>
-  <div class='<%menuItemId%> <%menuId%> menuItem'>
-    <div class='menuItemName'><%menuItemName%></div>
-    <div class='menuItemDescription'><%menuItemDescription%></div>
-    <div class='menuItemPrice'><%menuItemPrice%></div>
-    <button type='button' class='menuOrder <%menuItemId%>'>Order</button>
-  </div>
   </script>
 
   <script id='allRecommended' type='x-tmpl-mustache'>

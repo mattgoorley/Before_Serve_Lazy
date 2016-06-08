@@ -14,10 +14,10 @@
 {% block subcontent %}
   <ul class="likers">
     <li>
-    <button type="button" class='dislikebutton swipe'>Dislike</button>
+    <button type="button" class='dislikebutton swipe btn btn-default btn-lg'><span class="glyphicon glyphicon-remove"></span></button>
     </li>
     <li>
-    <button type="button" class="likebutton swipe">Like</button>
+    <button type="button" class="likebutton swipe btn btn-default btn-lg"><span class="glyphicon glyphicon-ok"></span></button>
     </li>
   </ul>
 {% endblock %}
@@ -29,7 +29,7 @@
     <div class='<%counter%> slide' style="z-index:<%counter%>;">
         <h5 class='title'><%title%></h5>
         <div class='imageDiv'>
-            <img class='foodImage' src='<%poster%>'/>
+            <img class='movieImage' src='<%poster%>'/>
           </div>
         <div class='description'><%overview%></div>
         <div class='rating'>Score: <%rating%></div>

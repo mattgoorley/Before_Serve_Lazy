@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="center">
+  <h1>Lazy Sunday</h1>
 
+  <div>Welcome {{user.name}}</div>
 </div>
 {% endblock %}
 
   {% block subcontent %}
+      <div class='datboi'><img class='dboi' src="https://media.giphy.com/media/1D73OhwOoahyg/giphy.gif"></div>
       <ul class="twochoice">
         <li><a class="btn btn-lg btn-success btn-movies" href="/movies" role="button">Movies</a></li>
 
@@ -15,9 +18,8 @@
 
   {%block scripts%}
   <script>
-        function initiate_geolocation() {
-        navigator.geolocation.getCurrentPosition(handle_geolocation_query);
-
+    function initiate_geolocation() {
+      navigator.geolocation.getCurrentPosition(handle_geolocation_query);
     };
 
     function handle_geolocation_query(position){
@@ -31,6 +33,8 @@
           datatype: "jsonp",
           success: function(response){
             console.log(response)
+            $('.twochoice').css('visibility', 'visible')
+            $('.datboi').css('visibility', 'hidden')
           }
         })
     };

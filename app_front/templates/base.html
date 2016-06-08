@@ -23,21 +23,21 @@
 
       <div class="slideout-menu">
         <h3>Settings <a href="#" class="slideout-menu-toggle">×</a></h3>
-        <ul>
-          <li><a href="#">Stuff <i class="fa fa-angle-right"></i></a></li>
-          <li><a href="#">Sample <i class="fa fa-angle-right"></i></a></li>
-          <li><a href="#">Whatnot <i class="fa fa-angle-right"></i></a></li>
-        </ul>
+        <div class='home' id='http://localhost:5000/'>HOME BUTTON</div>
       </div>
 
       <div class="slideout-menu-likes">
         <h3>Likes <a href="#" class="slideout-menu-likes-toggle">×</a></h3>
-        <ul class="myfoodstorage">
-          <li><a href="#">Cheeze <i class="fa fa-angle-right"></i></a></li>
-        </ul>
-        <ul class="mymoviestorage">
-          <li><a href="#">Cheeze <i class="fa fa-angle-right"></i></a></li>
-        </ul>
+        <div>
+          <div class ="foodFab">Food</div>
+            <ul class="myfoodstorage">
+            </ul>
+        </div>
+        <div>
+          <div class='movieFab'>Movies</div>
+            <ul class='mymoviestorage'>
+            </ul>
+        </div>
       </div>
 
       <div class="header clearfix">
@@ -74,7 +74,7 @@
       </div>
 
       <footer class="footer">
-        <p>&copy; 2015 Lazy Sunday</p>
+        <p>&copy; 2016 Lazy Sunday</p>
       </footer>
 
     </div> <!-- /container -->
@@ -83,22 +83,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="static/index.js"></script>
+
     <script id='myfood' type='x-tmpl-mustache'>
       <div class='<%dishId%> shell'>
         <div class='<%dishId%> <%merchantId%> dish'>
-          <h3 class='myname'><%name%></h3>
+          <h3 class='myname'><%merchantName%> : <%dishName%></h3>
               <div class='<%dishId%> <%merchantId%> myimageDiv'>
                 <img class='myfoodImage' src='<%image%>'/>
               </div>
               <div class='mydescription'><%description%></div>
               <div class='myprice'><%price%></div>
-              <button type='button' class='remove <%dishId%> <%name%>'>Remove</button>
-              <button type='button' class='order <%name%>'>Order</button>
+              <button type='button' class='remove <%dishId%> <%name%>'><span class='glyphicon glyphicon-trash'></span></button>
+              <button type='button' class='order' id='<%url%>'>Order</button>
         </div>
       </div>
     </script>
+
     <script id='myMovie' type='x-tmpl-mustache'>
-      <div class='shell'>
         <div class='film <%title%>'>
           <h3 class='title'><%title%></h3>
             <div class='myimageDiv'>
@@ -109,7 +110,21 @@
             <div class='released'><%released%></div>
             <button type='button' class='remove'>Remove</button>
         </div>
+    </script>
+    <script id='menuHead' type='x-tmpl-mustache'>
+      <div class='<%merchMenuId%> <%menuId%> miniMenu'>
+        <h3 class='<%menuId%> menuName'><%menuName%></h3>
       </div>
     </script>
+
+    <script id='menuItem' type='x-tmpl-mustache'>
+      <div class='<%menuItemId%> <%menuId%> menuItem'>
+        <div class='menuItemName'><%menuItemName%></div>
+        <div class='menuItemDescription'><%menuItemDescription%></div>
+        <div class='menuItemPrice'>$<%menuItemPrice%></div>
+        <div  class='spacer <%menuItemId%>'> </div>
+      </div>
+    </script>
+
   </body>
 </html>
