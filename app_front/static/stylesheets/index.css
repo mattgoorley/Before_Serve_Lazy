@@ -282,6 +282,7 @@ nav .likes {
   overflow-y:auto;
   background-color:#686868;
   font-size:12px;
+  display: none;
 }
 .cards {
   height:400px;
@@ -293,6 +294,7 @@ nav .likes {
   overflow-y:auto;
   background-color:#686868;
   font-size:12px;
+  display: none;
 }
 
 /*likes css*/
