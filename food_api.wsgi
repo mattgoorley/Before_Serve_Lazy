@@ -8,5 +8,5 @@ import logging
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/Before_Serve_Lazy/")
 
-import food_api as application
+from food_api import food_api as application
 application.secret_key = 'its_a_secret'

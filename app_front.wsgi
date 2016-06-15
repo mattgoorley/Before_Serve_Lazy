@@ -8,5 +8,5 @@ import logging
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/Before_Serve_Lazy/")
 
-import app_front as application
+from app_front import app_front as application
 application.secret_key = 'its_a_secret'
