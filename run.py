@@ -2,6 +2,4 @@ from app_front import app_front
 
 
 
-app_front.run(port=5000, debug=True)
-# movie_api.run(port=3000, debug=True)
-
+app_front.run(host="0.0.0.0",port=5000, debug=True)
