@@ -58,4 +58,6 @@ def menus():
   print(delivery_url)
   return jsonify(menu=menu)
 
-
+@food_api.route('/')
+def test():
+  return jsonify(menu="hello")
