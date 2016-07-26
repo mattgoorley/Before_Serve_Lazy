@@ -77,7 +77,7 @@ var getUser = function() {
       var data = searchDish
       var promise = $.ajax ({
         method:'POST',
-        url:'http://localhost:8080/food/image',
+        url:'http://lazysundayapp/food/image',
         data:data,
         datatype:'jsonp',
         success:function(response){
@@ -397,7 +397,7 @@ var getUser = function() {
     }else{
     $.ajax({
       method:'POST',
-      url:'http://localhost:8080/food/menu',
+      url:'http://lazysundayapp/food/menu',
       data:{'merchId':merchId},
       datatype:'jsonp',
       success:function(response){

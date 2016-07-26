@@ -231,7 +231,7 @@ $(document).ready(function () {
         else{
         $.ajax({
           method:'POST',
-          url:'http://localhost:8080/food/menu',
+          url:'http://lazysundayapp/food/menu',
           data:{'merchId':merchId},
           datatype:'jsonp',
           success:function(response){
