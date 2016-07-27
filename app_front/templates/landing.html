@@ -19,7 +19,13 @@
   {%block scripts%}
   <script>
     function initiate_geolocation() {
-      navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+      navigator.geolocation.getCurrentPosition(function(success){handle_geolocation_query},
+        function(failure) {
+          if(failure.message.indexOf("Only secure origins are allowed") == 0){
+            console.log("This")
+          }
+        });
+
     };
 
     function handle_geolocation_query(position){
