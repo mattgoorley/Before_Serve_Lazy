@@ -18,19 +18,11 @@
 
   {%block scripts%}
   <script>
-    function initiate_geolocation() {
-      navigator.geolocation.getCurrentPosition(function(success){handle_geolocation_query},
-        function(failure) {
-          if(failure.message.indexOf("Only secure origins are allowed") == 0){
-            console.log("This")
-          }
-        });
 
-    };
 
     function handle_geolocation_query(position){
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
+        latitude = "40.751678";
+        longitude = "-73.979547";
         local = {"latitude": latitude, "longitude":longitude}
         $.ajax({
           method: "POST",
@@ -45,8 +37,6 @@
         })
     };
 
-
-    initiate_geolocation()
-
+  handle_geolocation_query()
   </script>
   {%endblock%}
