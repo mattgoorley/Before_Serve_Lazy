@@ -128,12 +128,12 @@ def remove_liked():
 @app_front.route('/getmovies',methods=['GET'])
 
 def get_movies():
-  attempt = str(session.get('attempts', 0))
+  attempt = str(session.get('attempts', 1))
   movie_key = MOVIE_KEY
   movie_url = "http://api.themoviedb.org/3/movie/popular" + "?api_key=" + movie_key + "&page=" + attempt
   movies_return = requests.get(movie_url).json()
   movies_list = movies_return['results']
-  session['attempts'] = session.get('attempts',0)+1
+  session['attempts'] = session.get('attempts',1)+1
   print(session['attempts'])
   return jsonify(movies=movies_list)
 
