@@ -132,6 +132,7 @@ def get_movies():
   movie_key = MOVIE_KEY
   movie_url = "http://api.themoviedb.org/3/movie/popular" + "?api_key=" + movie_key + "&page=" + attempt
   movies_return = requests.get(movie_url).json()
+  print("135")
   movies_list = movies_return['results']
   session['attempts'] = session.get('attempts',1)+1
   print(session['attempts'])
