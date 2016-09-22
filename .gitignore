@@ -1,2 +1,4 @@
 env/
 magicbeanstalk/
+__pycache__
+*.db
