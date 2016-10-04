@@ -10,7 +10,7 @@ $(document).ready(function(){
     var realLong = __cache["location"]["longitude"]
     $.ajax({
       method:'POST',
-      url:'http://api.lazysundayapp.com/food/merchants',
+      url:'http://foodapi.lazysundayapp.com/food/merchants',
       data:{'latitude':realLat,'longitude':realLong},
       datatype:'jsonp',
       success:function(response){

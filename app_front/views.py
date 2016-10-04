@@ -131,11 +131,9 @@ def get_movies():
   attempt = str(session.get('attempts', 1))
   movie_key = MOVIE_KEY
   movie_url = "http://api.themoviedb.org/3/movie/popular" + "?api_key=" + movie_key + "&page=" + attempt
-  print(movie_url)
   movies_return = requests.get(movie_url).json()
   movies_list = movies_return['results']
   session['attempts'] = session.get('attempts',1)+1
-  print(session['attempts'])
   return jsonify(movies=movies_list)
 
 @app_front.route('/getprime',methods=['GET'])
