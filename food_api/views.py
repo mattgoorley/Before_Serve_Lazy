@@ -31,19 +31,19 @@ def image():
   merchant_id = dish['merchantId']
   merchant_name = dish['merchantName']
   url = dish['url']
-  bing_image_key = IMAGE_KEY
-  bing_headers = {"Ocp-Apim-Subscription-Key":bing_image_key}
-  bing_url_temp = 'https://bingapis.azure-api.net/api/v5/images/search?q={dish_name}&count=1&offset=0&mkt=en-us&safeSearch=Strict'
-  bing_url = bing_url_temp.format(dish_name=dish_name)
-  image_response = requests.get(bing_url,headers=bing_headers).json()
+  # bing_image_key = IMAGE_KEY
+  # bing_headers = {"Ocp-Apim-Subscription-Key":bing_image_key}
+  pixaby_url_temp = 'https://pixabay.com/api/?key=3444927-2ac7cdb68b275dc6741ccd7ae&q=food+{dish_name}'
+  pix_url = pixaby_url_temp.format(dish_name=dish_name)
+  image_response = requests.get(pix_url).json()
   try:
-    image_response['value'][0]['contentUrl']
+    image_response['hits'][0]['previewURL']
   except IndexError:
     image = 'none'
   except KeyError:
     image = "none"
   else:
-    image = image_response['value'][0]['contentUrl']
+    image = image_response['hits'][0]['webformatURL']
   # image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7ITbPjeMfmpVljRAZ5bVXW89HaMQZhteKdGuZhdu1HhyOJiVWqg'
   return jsonify(image=image,dishName=dish_name,description=description,price=price,merchantId=merchant_id,dishId=dish_id,merchantName=merchant_name,url=url)
 
