@@ -19,7 +19,7 @@ def merchants():
   merchants = requests.get(delivery_url).json()
   return jsonify(merchants=merchants)
 
-@food_api.route('/food/image',methods=['POST',])
+@food_api.route('/food/image',methods=['POST','GET'])
 @cross_origin()
 
 def image():
