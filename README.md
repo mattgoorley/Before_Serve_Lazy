@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/app_front/LZ_images/lazysundaysquare.png" width="350"/>
+  <img src="/app_front/static/LZ_images/lazysundaysquare.png" width="350"/>
 </p>
 
 
