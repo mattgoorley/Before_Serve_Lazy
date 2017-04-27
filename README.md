@@ -1,4 +1,7 @@
-![alt text](app_front/LZ_images/lazysundaysquare.png)
+<p align="center">
+  <img src="app_front/LZ_images/lazysundaysquare.png" width="350"/>
+</p>
+
 
 Lazy Sunday allows for user discovery of Movies and Food that can be delivered to them. Delivers unique dishes from restaurants that are open in NYC, as well as movies that can be watched at home on various platforms.
 
